@@ -1,7 +1,7 @@
 # fabric-wallet-java
 Fabric wallet developed using Java
 
-## Traget
+## Target
 
 基于 Fabric SDK 1.4 开发钱包，增加一层钱包的抽象层，来简化 Fabric SDK 的集成，更容易使用；同时加入钱包更能体现区块链的思想。
 
@@ -16,6 +16,14 @@ Fabric wallet developed using Java
 ### Release v1.1 Milestone
 
 // todo
+
+## Development
+
+### Software Required
+
+- Java 1.8+
+- Fabric-SDK-Java 1.4
+- Maven 3.0+
 
 ## Sponsor
 
