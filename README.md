@@ -12,3 +12,11 @@ Fabric wallet developed using Java
 - 支持多个合约调用
 - 支持交易查询和交易执行
 - 支持本地导入钱包和 CA 服务导入，不同的证书获取途径
+
+### Release v1.1 Milestone
+
+// todo
+
+## Sponsor
+
+- shniu (Shaohan Niu) - xiaoniu198903@126.com / shaohan.niu.share@gmail.com
