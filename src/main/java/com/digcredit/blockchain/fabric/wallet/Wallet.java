@@ -12,7 +12,7 @@ public interface Wallet {
     /**
      * Import the certificate, the private key and the user info into wallet
      *
-     * @param label Identity in the wallet, e.g. user1@org1.example.com
+     * @param label Identity in the wallet, e.g. default is `user1@org1.example.com`
      * @param user  user with certificate, private key and other information
      */
     void imports(String label, User user);
