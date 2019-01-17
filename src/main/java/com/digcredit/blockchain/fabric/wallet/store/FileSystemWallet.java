@@ -85,7 +85,23 @@ public class FileSystemWallet implements Wallet {
     }
 
     @Override
-    public FabricUser exports(String label) {
-        return null;
+    public FabricUser exports(String label) throws Exception {
+        // Get path
+        Path storePath = genUserStorePath(walletStorePath, label);
+
+        // Private key
+        String privateName = getId(label) + PRIVATE_KEY_SUFFIX;
+        Path privateStorePath = Paths.get(storePath.toString(), privateName);
+        byte[] bytesPriv = Files.readAllBytes(privateStorePath);
+        PrivateKey privateKey = WalletUtil.getPrivateKeyFromString(new String(bytesPriv));
+
+        // User
+        Path userStorePath = Paths.get(storePath.toString(), label);
+        byte[] bytesUser = Files.readAllBytes(userStorePath);
+        String jsonData = new String(bytesUser);
+
+        FabricUser user = new FabricUser();
+        user.fromJson(jsonData, privateKey);
+        return user;
     }
 }

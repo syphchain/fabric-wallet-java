@@ -63,7 +63,7 @@ public class FileSystemWalletTest {
     }
 
     @Test
-    public void imports() throws Exception {
+    public void importsAndExports() throws Exception {
         FabricUser user = new FabricUser("user1", "org1.digcredit.com");
         user.setRoles(new HashSet<String>() {{
             add("user");
@@ -79,6 +79,8 @@ public class FileSystemWalletTest {
             basePath = "/tmp/fabric-wallet";
         }
         Wallet fsWallet = new FileSystemWallet(basePath);
+
+        // imports
         fsWallet.imports(user.getLabel(), user);
 
         Path privCheckPath = Paths.get(basePath, "user1", "wallet", "user1@org1.digcredit.com", "user1-priv");
@@ -106,11 +108,12 @@ public class FileSystemWalletTest {
         byte[] jsonBytes = Files.readAllBytes(userCheckPath);
         String loadedJson = new String(jsonBytes);
         logger.debug(loadedJson);
-    }
 
-    @Test
-    public void exports() throws Exception {
-
+        // exports
+        FabricUser exportedUser = fsWallet.exports(user.getLabel());
+        Assert.assertEquals(user.getName(), exportedUser.getName());
+        Assert.assertEquals(user.getEnrollment().getCert(), exportedUser.getEnrollment().getCert());
+        logger.debug("exportedUser: {}", exportedUser);
     }
 
 }

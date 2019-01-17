@@ -44,5 +44,5 @@ public interface Wallet {
      * @param label Identity in the wallet, e.g. user1@org1.example.com
      * @return user with certificate, private key and other information
      */
-    FabricUser exports(String label);
+    FabricUser exports(String label) throws Exception;
 }
