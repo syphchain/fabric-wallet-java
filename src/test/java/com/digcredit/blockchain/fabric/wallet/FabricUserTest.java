@@ -91,6 +91,17 @@ public class FabricUserTest {
         Assert.assertTrue(user.getRoles().size() == 2);
 
         // User u = user;
+
+        String jsonString = user.toJson();
+        logger.info(jsonString);
+        Assert.assertTrue(jsonString != null && jsonString.contains("Org1MSP"));
+
+        FabricUser newUser = new FabricUser();
+        logger.debug("newUser: {}", newUser);
+        newUser.fromJson(jsonString, enrollment.getKey());
+        Assert.assertEquals(user.getName(), newUser.getName());
+        Assert.assertEquals(user.getEnrollment().getCert(), newUser.getEnrollment().getCert());
+        logger.debug("newUser fromJson: {}", newUser);
     }
 
 }

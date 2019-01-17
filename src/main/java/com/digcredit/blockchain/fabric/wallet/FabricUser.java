@@ -1,10 +1,15 @@
 package com.digcredit.blockchain.fabric.wallet;
 
+import com.digcredit.blockchain.fabric.wallet.util.ModelMapper;
+import com.digcredit.blockchain.fabric.wallet.util.SimpleBeanCopier;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.netty.util.internal.StringUtil;
 import org.hyperledger.fabric.sdk.Enrollment;
 import org.hyperledger.fabric.sdk.User;
+import org.hyperledger.fabric.sdk.identity.X509Enrollment;
 
 import java.io.Serializable;
+import java.security.PrivateKey;
 import java.util.Set;
 
 /**
@@ -13,6 +18,8 @@ import java.util.Set;
 public class FabricUser implements User, Serializable {
 
     private static final long serialVersionUID = 8077132155383604355L;
+    @JsonIgnore
+    private ModelMapper modelMapper = new ModelMapper();
 
     private String name;
     // peer orderer client user
@@ -21,9 +28,14 @@ public class FabricUser implements User, Serializable {
     private String affiliation;
     private String organization;
     private String enrollmentSecret;
+    private String signedCert;
 
     String mspId;
+
+    @JsonIgnore
     Enrollment enrollment = null;
+
+    public FabricUser(){}
 
     public FabricUser(String name, String organization) {
         this.name = name;
@@ -31,17 +43,42 @@ public class FabricUser implements User, Serializable {
     }
 
     /**
+     * To json
+     */
+    public String toJson() {
+        return modelMapper.writeString(this);
+    }
+
+    /**
+     * From json
+     */
+    public void fromJson(String jsonStr, PrivateKey privateKey) {
+        FabricUser user = (FabricUser) modelMapper.make(FabricUser.class, jsonStr);
+        SimpleBeanCopier beanCopier = new SimpleBeanCopier<>(this.getClass(), this.getClass());
+        //noinspection unchecked
+        beanCopier.copyBean(user, this);
+        if (privateKey != null) {
+            this.enrollment = new X509Enrollment(privateKey, this.getSignedCert());
+        }
+    }
+
+    /**
      * Get label, unique user id in the wallet
      *
      * @return unique user id
      */
+    @JsonIgnore
     public String getLabel() {
-        return name + organization;
+        return String.format("%s@%s", name, organization);
     }
 
     @Override
     public String getName() {
         return this.name;
+    }
+
+    public void setName(java.lang.String name) {
+        this.name = name;
     }
 
     @Override
@@ -77,7 +114,18 @@ public class FabricUser implements User, Serializable {
     }
 
     public void setEnrollment(Enrollment enrollment) {
+        if (enrollment != null) {
+            this.signedCert = enrollment.getCert();
+        }
         this.enrollment = enrollment;
+    }
+
+    public String getSignedCert() {
+        return signedCert;
+    }
+
+    public void setSignedCert(String signedCert) {
+        this.signedCert = signedCert;
     }
 
     public void setEnrollmentSecret(String enrollmentSecret) {
@@ -88,10 +136,12 @@ public class FabricUser implements User, Serializable {
         return enrollmentSecret;
     }
 
+    @JsonIgnore
     public boolean isEnerolled() {
         return null != enrollment;
     }
 
+    @JsonIgnore
     public boolean isRegistered() {
         return !StringUtil.isNullOrEmpty(enrollmentSecret);
     }
