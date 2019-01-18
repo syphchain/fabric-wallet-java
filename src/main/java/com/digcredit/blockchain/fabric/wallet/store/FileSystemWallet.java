@@ -89,6 +89,10 @@ public class FileSystemWallet implements Wallet {
     public FabricUser exports(String label) throws Exception {
         // Get path
         Path storePath = genUserStorePath(walletStorePath, label);
+        if (!storePath.toFile().exists()) {
+            return null;
+        }
+        // Todo: when to return null
 
         // Private key
         String privateName = getId(label) + PRIVATE_KEY_SUFFIX;
