@@ -25,6 +25,12 @@ Fabric wallet developed using Java
 - Fabric-SDK-Java 1.4
 - Maven 3.0+
 
+### Chaincode
+
+- [For golang chaincode developer](https://godoc.org/github.com/hyperledger/fabric/core/chaincode/shim#Chaincode)
+- [For Nodejs chaincode developer](https://fabric-shim.github.io/release-1.4/index.html) and [fabric-chaincode-node Git](https://github.com/hyperledger/fabric-chaincode-node)
+- [For Java chaincode developer](https://github.com/hyperledger/fabric-chaincode-java)
+
 ## Sponsor
 
 - shniu (Shaohan Niu) - xiaoniu198903@126.com / shaohan.niu.share@gmail.com

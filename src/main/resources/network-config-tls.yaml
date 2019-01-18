@@ -9,7 +9,7 @@
 # blockchain network that are necessary for the applications to interact with it. These are all
 # knowledge that must be acquired from out-of-band sources. This file provides such a source.
 #
-name: "Network-Config-Sample"
+name: "tokennet.epuchain.profile"
 
 #
 # Any properties with an "x-" prefix will be treated as application-specific, exactly like how naming
@@ -45,7 +45,7 @@ client:
     # [Optional]. Specific to FileKeyValueStore.js or similar implementations in other SDKs. Can be others
     # if using an alternative impl. For instance, CouchDBKeyValueStore.js would require an object
     # here for properties like url, db name, etc.
-    path: "/tmp/hfc-kvs"
+    path: "/tmp/hfc-wallet"
 
     # [Optional]. Specific to the CryptoSuite implementation. Software-based implementations like
     # CryptoSuite_ECDSA_AES.js in node SDK requires a key store. PKCS#11 based implementations does
@@ -55,7 +55,7 @@ client:
       path: "/tmp/hfc-cvs"
 
     # [Optional]. Specific to Composer environment
-    wallet: wallet-name
+    wallet: fabric-wallet
 
 #
 # [Optional]. But most apps would have this section so that channel objects can be constructed

@@ -28,6 +28,7 @@ public class FileSystemWallet implements Wallet {
     private static final String PRIVATE_KEY_SUFFIX = "-priv";
     private static final String PUBLIC_KEY_SUFFIX = "-pub";
 
+    private String walletName; // Todo
     private String walletStorePath;
 
     public FileSystemWallet(String walletStorePath) {
