@@ -1,8 +1,8 @@
 package com.digcredit.blockchain.fabric.wallet;
 
 import org.hyperledger.fabric.sdk.ChaincodeID;
+import org.hyperledger.fabric.sdk.Channel;
 
-import java.nio.channels.Channel;
 
 /**
  * A Network represents the set of peers in a Fabric network.

@@ -1,6 +1,6 @@
 package com.digcredit.blockchain.fabric.wallet;
 
-import com.digcredit.blockchain.fabric.wallet.gateway.DefaultGateway;
+import com.digcredit.blockchain.fabric.wallet.impl.DefaultGateway;
 import com.digcredit.blockchain.fabric.wallet.option.GatewayOptions;
 import com.digcredit.blockchain.fabric.wallet.store.FileSystemWallet;
 import com.digcredit.blockchain.fabric.wallet.util.WalletUtil;
@@ -56,6 +56,8 @@ public class GatewayTest {
 
     @Test
     public void test() throws Exception {
+        // Todo: 应用端配置项?
+        //  channel name, chaincode, client
         // initial
         String channelName = "mychannel";
         ChaincodeID chaincodeID = ChaincodeID.newBuilder()
